@@ -1097,7 +1097,9 @@ body.nav-open{ overflow:hidden; }
   padding-bottom: 50px;
   border-bottom: 1px solid var(--border-soft);
 }
-.footer-brand img{ height:28px; margin-bottom:16px; }
+.footer-logo{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.footer-logo img{ height:30px; width:auto; }
+.footer-logo span{ font-family: var(--font-display); font-weight:600; font-size:17px; letter-spacing:.02em; color:#fff; }
 .footer-brand p{ color: var(--text-dim); font-size:13.5px; max-width:30ch; line-height:1.6; }
 .footer-col h4{ font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color: var(--text-dimmer); margin-bottom:16px; }
 .footer-col ul{ display:flex; flex-direction:column; gap:11px; }

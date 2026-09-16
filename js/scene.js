@@ -508,18 +508,18 @@ function drawIcon(ctx, key, cx, cy, r) {
 
   switch (key) {
     case "whatsapp": {
-      ctx.beginPath();
-      ctx.moveTo(cx - r * 0.6, cy - r * 0.35);
-      ctx.arc(cx, cy - r * 0.1, r * 0.62, Math.PI * 0.72, Math.PI * 2.28);
-      ctx.lineTo(cx - r * 0.05, cy + r * 0.62);
-      ctx.lineTo(cx - r * 0.4, cy + r * 0.4);
-      ctx.closePath();
-      ctx.stroke();
-      [-0.22, 0.05, 0.32].forEach((dx) => {
-        ctx.beginPath();
-        ctx.arc(cx + dx * r, cy - r * 0.12, r * 0.055, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      // Exact WhatsApp glyph (ring bubble + tail + handset), drawn from real
+      // SVG path data via Path2D so it's pixel-accurate — same shape used in
+      // the floating contact widget, just re-scaled to this icon's radius.
+      ctx.save();
+      ctx.translate(cx - r * 0.62, cy - r * 0.62);
+      const s = (r * 1.24) / 24;
+      ctx.scale(s, s);
+      const p = new Path2D(
+        "M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3.1.8.8-3-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4a.5.5 0 0 0 0-.5c-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.6 1.1 2.8.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"
+      );
+      ctx.fill(p);
+      ctx.restore();
       break;
     }
     case "crm": {
