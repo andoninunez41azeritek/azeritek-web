@@ -1,0 +1,9 @@
+{
+  "name": "azeritek-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AZERITEK — premium 3D AI automation website (static site, Three.js + GSAP).",
+  "scripts": {
+    "dev": "npx --yes serve -l 5173 ."
+  }
+}

@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AZERITEK — Automatización con Inteligencia Artificial para empresas</title>
+<meta name="description" content="Azeritek diseña agentes de IA que responden por WhatsApp, gestionan reservas, cualifican leads y conectan tu CRM. Tu empresa funcionando, incluso cuando tú no estás.">
+<meta name="theme-color" content="#05070D">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/logo/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/logo/favicon-192.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Azeritek">
+<meta property="og:title" content="AZERITEK — Automatización con Inteligencia Artificial para empresas">
+<meta property="og:description" content="Agentes de IA para WhatsApp, reservas, CRM y seguimiento de leads. Diagnóstico gratuito.">
+<meta property="og:image" content="assets/logo/favicon-512.png">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Azeritek Automatización S.L.",
+  "alternateName": "Azeritek",
+  "url": "https://azeritek.es",
+  "logo": "assets/logo/favicon-512.png",
+  "description": "Automatización de negocio con Inteligencia Artificial: agentes de WhatsApp, reservas automáticas, CRM y seguimiento de leads.",
+  "email": "contacto@azeritek.es",
+  "telephone": "+34639730895",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Portuetxe 51, Ofic. 113",
+    "addressLocality": "Donostia-San Sebastián",
+    "addressRegion": "País Vasco",
+    "postalCode": "20018",
+    "addressCountry": "ES"
+  }
+}
+</script>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader" aria-hidden="true">
+    <img src="assets/logo/logo-mark.png" alt="" width="74" height="74">
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Persistent WebGL background -->
+  <div id="gl-stage"><canvas id="gl-canvas"></canvas></div>
+  <div class="node-labels" id="node-labels"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-vignette"></div>
+  <div class="bg-noise"></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <a href="#hero" class="nav-logo" aria-label="Azeritek — inicio">
+      <img src="assets/logo/logo-mark.png" alt="" width="26" height="26">
+      <span>AZERITEK</span>
+    </a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#servicios">Soluciones</a>
+      <a href="#proceso">Cómo funciona</a>
+      <a href="#sectores">Sectores</a>
+      <a href="#confianza">Nosotros</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://wa.me/34639730895" target="_blank" rel="noopener">+34 639 73 08 95</a>
+      <a class="btn btn-primary" data-magnetic href="https://wa.me/34639730895?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20automatizar%20mi%20empresa%20con%20Azeritek." target="_blank" rel="noopener">Diagnóstico gratuito</a>
+      <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-panel">
+    <a href="#servicios">Soluciones</a>
+    <a href="#proceso">Cómo funciona</a>
+    <a href="#sectores">Sectores</a>
+    <a href="#confianza">Nosotros</a>
+    <a class="btn btn-primary" href="https://wa.me/34639730895?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20automatizar%20mi%20empresa%20con%20Azeritek." target="_blank" rel="noopener">Diagnóstico gratuito</a>
+  </div>
+
+  <!-- Persistent quick-contact widget -->
+  <div class="quick-contact" id="quick-contact">
+    <div class="quick-contact-menu" id="quick-contact-menu">
+      <a href="https://wa.me/34639730895?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20automatizar%20mi%20empresa%20con%20Azeritek." target="_blank" rel="noopener" class="qc-item">
+        <span class="qc-icon qc-whatsapp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3.1.8.8-3-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4a.5.5 0 0 0 0-.5c-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.6 1.1 2.8.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></span>
+        <span class="qc-label">WhatsApp</span>
+      </a>
+      <a href="tel:+34639730895" class="qc-item">
+        <span class="qc-icon qc-call"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2-.4c1 .3 2 .5 3 .7a2 2 0 0 1 1.5 2Z"/></svg></span>
+        <span class="qc-label">Llamar</span>
+      </a>
+      <a href="mailto:contacto@azeritek.es" class="qc-item">
+        <span class="qc-icon qc-mail"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 6.5l9 6.5 9-6.5"/></svg></span>
+        <span class="qc-label">Email</span>
+      </a>
+    </div>
+    <button class="quick-contact-toggle" id="quick-contact-toggle" aria-label="Abrir contacto rápido" aria-expanded="false">
+      <svg class="qc-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3.1.8.8-3-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4a.5.5 0 0 0 0-.5c-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.6 1.1 2.8.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+      <svg class="qc-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ============================= HERO ============================= -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow" data-reveal>IA · AUTOMATIZACIÓN · ESPAÑA</div>
+          <h1 data-reveal>Tu empresa <em>funcionando.</em><br>Incluso cuando tú no estás.</h1>
+          <p class="lede" data-reveal>Automatizamos atención al cliente, reservas, seguimiento y procesos internos con Inteligencia Artificial.</p>
+          <div class="cta-row" data-reveal>
+            <a class="btn btn-primary btn-lg" data-magnetic href="https://wa.me/34639730895?text=Hola%2C%20quiero%20automatizar%20mi%20empresa%20con%20Azeritek." target="_blank" rel="noopener">
+              AUTOMATIZAR MI EMPRESA
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="#journey">VER CÓMO FUNCIONA</a>
+          </div>
+          <div class="cta-note" data-reveal>
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>
+            Diagnóstico gratuito · Sin compromiso
+          </div>
+        </div>
+        <div class="hero-stage" aria-hidden="true"></div>
+      </div>
+      <div class="hero-scrollcue" aria-hidden="true"><span>Scroll</span><span class="line"></span></div>
+    </section>
+
+    <!-- ============================= JOURNEY ============================= -->
+    <section class="journey section-pad" id="journey">
+      <div class="container">
+        <div class="journey-head">
+          <div class="eyebrow" data-reveal>FLUJO AUTOMATIZADO</div>
+          <h2 data-reveal>De una conversación<br>a un proceso <span class="accent">completamente automatizado.</span></h2>
+          <p class="lede" data-reveal style="margin:18px auto 0;">Conectamos tus herramientas para que tu negocio responda, gestione y venda automáticamente.</p>
+        </div>
+
+        <div class="journey-flow">
+          <div class="journey-line"><div class="journey-line-fill"></div></div>
+
+          <div class="journey-step"><span class="jnum">01</span><h3>Nuevo cliente</h3><p>Un cliente potencial contacta con tu negocio por primera vez.</p></div>
+          <div class="journey-step"><span class="jnum">02</span><h3>WhatsApp</h3><p>El mensaje llega directamente a tu canal de WhatsApp Business.</p></div>
+          <div class="journey-step"><span class="jnum">03</span><h3>Agente IA</h3><p>Tu agente de IA responde al instante, las 24 horas del día.</p></div>
+          <div class="journey-step"><span class="jnum">04</span><h3>Cualificación</h3><p>El sistema identifica qué necesita el cliente y su nivel de interés.</p></div>
+          <div class="journey-step"><span class="jnum">05</span><h3>CRM</h3><p>Los datos del contacto se registran automáticamente en tu CRM.</p></div>
+          <div class="journey-step"><span class="jnum">06</span><h3>Reserva</h3><p>El cliente elige fecha y hora disponible, sin llamadas ni esperas.</p></div>
+          <div class="journey-step"><span class="jnum">07</span><h3>Calendario</h3><p>La cita se bloquea en tu calendario real en tiempo real.</p></div>
+          <div class="journey-step"><span class="jnum">08</span><h3>Recordatorio</h3><p>Se envía un recordatorio automático antes de la cita.</p></div>
+          <div class="journey-step"><span class="jnum">09</span><h3>Seguimiento</h3><p>El sistema hace seguimiento automático después de la visita.</p></div>
+          <div class="journey-step"><span class="jnum">10</span><h3>Reseña</h3><p>Se solicita una reseña en el momento óptimo, sin esfuerzo humano.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= LIVE DEMO ============================= -->
+    <section class="demo section-pad" id="demo">
+      <div class="container">
+        <div class="demo-grid">
+          <div class="demo-copy">
+            <div class="eyebrow" data-reveal>DEMO EN VIVO</div>
+            <h2 data-reveal>Mira a tu agente de IA<br>trabajar en <span class="accent">tiempo real.</span></h2>
+            <p class="lede" data-reveal>Una conversación real de WhatsApp, gestionada de principio a fin sin intervención humana.</p>
+
+            <div class="demo-modules" data-reveal>
+              <div class="demo-module">
+                <div class="m-icon"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5.5" r="2.3"/><circle cx="6" cy="20" r="2.3"/><circle cx="22" cy="20" r="2.3"/><path d="M14 7.8v5M14 12.8l-6.5 5M14 12.8l6.5 5"/></svg></div>
+                <div class="m-body"><div class="m-title">CRM</div><div class="m-status">Cliente registrado ✓</div></div>
+                <div class="m-check"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg></div>
+              </div>
+              <div class="demo-module">
+                <div class="m-icon"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="6.5" width="19" height="16" rx="2.5"/><path d="M4.5 11.5h19M9.5 3.5v5M18.5 3.5v5"/></svg></div>
+                <div class="m-body"><div class="m-title">CALENDARIO</div><div class="m-status">Cita creada ✓</div></div>
+                <div class="m-check"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg></div>
+              </div>
+              <div class="demo-module">
+                <div class="m-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3.6"/></svg></div>
+                <div class="m-body"><div class="m-title">AUTOMATIZACIÓN</div><div class="m-status">Recordatorio programado ✓</div></div>
+                <div class="m-check"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-stage" data-reveal-scale>
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-head">
+                  <div class="avatar">AI</div>
+                  <div class="who"><b>Azeritek AI</b><span>en línea</span></div>
+                </div>
+                <div class="phone-body">
+                  <div class="bubble in">Hola, quería pedir cita para mañana.</div>
+                  <div class="typing"><i></i><i></i><i></i></div>
+                  <div class="bubble out">¡Claro! Tengo disponibilidad mañana a las <b>10:30</b> y a las <b>17:00</b>. ¿Qué horario prefieres?</div>
+                  <div class="bubble in">10:30</div>
+                  <div class="bubble out">Perfecto. Tu cita está reservada ✅</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-bignum" data-reveal>
+          <p><span class="n">1</span> conversación. <span class="n">3</span> procesos ejecutados. <span class="n">0</span> intervención manual.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PROBLEM / SOLUTION ============================= -->
+    <section class="section-pad" id="transformacion">
+      <div class="container">
+        <div class="transform-head">
+          <div class="eyebrow" data-reveal>ANTES / DESPUÉS</div>
+          <h2 data-reveal>Menos tareas.<br><span class="accent">Más negocio.</span></h2>
+        </div>
+
+        <div class="transform-stage">
+          <div class="tf-layer tf-before">
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Mensajes sin responder</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Leads olvidados</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Reservas manuales</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Llamadas constantes</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>No-shows</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Procesos repetitivos</div>
+          </div>
+
+          <img class="transform-core" src="assets/logo/logo-mark.png" alt="" aria-hidden="true">
+
+          <div class="tf-layer tf-after">
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Respuestas 24/7</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Reservas automáticas</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Seguimiento automático</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>CRM actualizado</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Recordatorios</div>
+            <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Procesos conectados</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= SERVICES ============================= -->
+    <section class="section-pad" id="servicios">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow" data-reveal>SERVICIOS</div>
+          <h2 data-reveal>Automatizamos lo que<br>te hace perder tiempo.</h2>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <span class="s-index">01</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-7l-5 4v-4H8a3 3 0 0 1-3-3V8Z"/><path d="M14 9.3l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z"/></svg></div>
+            <h3>Agentes de IA</h3>
+            <p class="s-sub">Atención inteligente 24/7.</p>
+            <p class="s-detail">Responden, cualifican y resuelven dudas como el mejor comercial de tu equipo, sin descansos ni esperas.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">02</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-6l-3 3v-3H6a2 2 0 0 1-2-2V7Z"/><path d="M13 19a2 2 0 0 0 2 2h5l3 3v-3h1a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2"/></svg></div>
+            <h3>WhatsApp Automation</h3>
+            <p class="s-sub">Respuestas, cualificación y reservas.</p>
+            <p class="s-detail">Tu WhatsApp de empresa convertido en un canal de ventas que nunca deja un mensaje sin respuesta.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">03</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="20" height="17" rx="3"/><path d="M4 11h20M9 3v5M19 3v5"/><path d="M10 17l2.5 2.5L18 14"/></svg></div>
+            <h3>Reservas automáticas</h3>
+            <p class="s-sub">Agenda funcionando sin intervención manual.</p>
+            <p class="s-detail">Sincronizado con tu calendario real. Cero dobles reservas, cero llamadas para confirmar horarios.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">04</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h18l-6.5 8v7l-5 3v-10L5 5Z"/></svg></div>
+            <h3>Seguimiento de leads</h3>
+            <p class="s-sub">Ninguna oportunidad olvidada.</p>
+            <p class="s-detail">Cada contacto se cualifica, se prioriza y recibe seguimiento automático hasta convertir o descartar.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">05</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5.5" r="2.5"/><circle cx="6" cy="20" r="2.5"/><circle cx="22" cy="20" r="2.5"/><path d="M14 8v5M14 13l-6.5 5M14 13l6.5 5"/></svg></div>
+            <h3>CRM &amp; Integraciones</h3>
+            <p class="s-sub">Toda tu información conectada.</p>
+            <p class="s-detail">Conectamos WhatsApp, calendario, email y tus herramientas actuales en un mismo sistema.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">06</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="3" width="6" height="12" rx="3"/><path d="M6 12v1a8 8 0 0 0 16 0v-1M14 21v3M10 24h8"/></svg></div>
+            <h3>Voz IA</h3>
+            <p class="s-sub">Agentes capaces de atender llamadas.</p>
+            <p class="s-detail">Una voz natural que descuelga, entiende y gestiona llamadas cuando tu equipo no puede.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">07</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="17" height="13" rx="2.5"/><path d="M3 7.5l8.5 6.5L20 7.5"/><path d="M22 14a4 4 0 1 1-1.2-2.9"/><path d="M22 9v3h-3"/></svg></div>
+            <h3>Automatización de email</h3>
+            <p class="s-sub">Seguimientos automáticos.</p>
+            <p class="s-detail">Secuencias inteligentes que mantienen viva cada oportunidad sin que nadie escriba un correo.</p>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="s-index">08</span>
+            <div class="s-icon"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l3 6.3 6.9.9-5 4.9 1.2 6.9L14 18.6l-6.1 3.4L9.1 15l-5-4.9 6.9-.9L14 3Z"/></svg></div>
+            <h3>Reseñas Google</h3>
+            <p class="s-sub">Automatización para conseguir más reseñas.</p>
+            <p class="s-detail">Pedimos reseñas en el momento exacto, al cliente exacto, para construir reputación sin esfuerzo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= ECOSYSTEM / NETWORK ============================= -->
+    <section class="ecosystem" id="ecosistema">
+      <div class="container">
+        <div class="ecosystem-head">
+          <div class="eyebrow" data-reveal>ECOSISTEMA</div>
+          <h2 data-reveal>Todo conectado.<br><span class="accent">Todo automatizado.</span></h2>
+          <p class="lede" data-reveal style="margin:18px auto 0;">Un ecosistema diseñado alrededor de tu empresa.</p>
+        </div>
+        <div class="ecosystem-stage" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================= METRICS ============================= -->
+    <section class="metrics section-pad-sm" id="resultados">
+      <div class="container">
+        <div class="section-head center" style="margin-bottom:40px;">
+          <div class="eyebrow" data-reveal>EN NÚMEROS</div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric" data-reveal-scale><div class="m-num">24/7</div><div class="m-label">Atención automática</div></div>
+          <div class="metric" data-reveal-scale><div class="m-num" data-count="20" data-prefix="+" data-suffix="h">+0h</div><div class="m-label">Tiempo ahorrado semanalmente</div></div>
+          <div class="metric" data-reveal-scale><div class="m-num">&lt;3 min</div><div class="m-label">Tiempo de respuesta</div></div>
+          <div class="metric" data-reveal-scale><div class="m-num" data-count="100" data-suffix="%">0%</div><div class="m-label">Adaptado a tu negocio</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= CALCULATOR ============================= -->
+    <section class="section-pad" id="calculadora">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow" data-reveal>CALCULADORA DE IMPACTO</div>
+          <h2 data-reveal>¿Cuánto te está costando<br><span class="accent">no automatizar?</span></h2>
+          <p class="lede" data-reveal>Mueve los controles y descubre cuánto tiempo y dinero podrías recuperar cada mes.</p>
+        </div>
+
+        <div class="calc-panel" data-reveal>
+          <div class="calc-inputs">
+            <div class="calc-field">
+              <div class="calc-field-head">
+                <label for="calc-messages">Mensajes o solicitudes que recibes al mes</label>
+                <div class="calc-value"><span id="calc-messages-val">200</span></div>
+              </div>
+              <input type="range" id="calc-messages" min="20" max="1000" step="10" value="200">
+            </div>
+            <div class="calc-field">
+              <div class="calc-field-head">
+                <label for="calc-minutes">Minutos que dedicas de media a cada uno</label>
+                <div class="calc-value"><span id="calc-minutes-val">6</span> min</div>
+              </div>
+              <input type="range" id="calc-minutes" min="1" max="20" step="1" value="6">
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="calc-result">
+              <div class="calc-result-num"><span id="calc-hours">0</span>h</div>
+              <div class="calc-result-label">ahorradas al mes</div>
+            </div>
+            <div class="calc-result">
+              <div class="calc-result-num">€<span id="calc-money">0</span></div>
+              <div class="calc-result-label">recuperados al mes*</div>
+            </div>
+          </div>
+
+          <a class="btn btn-primary btn-lg calc-cta" id="calc-cta" data-magnetic target="_blank" rel="noopener" href="https://wa.me/34639730895">
+            QUIERO CONSEGUIR ESTO
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <p class="calc-disclaimer">*Estimación orientativa, basada en un coste medio de 18€/hora y un 75% de automatización de tareas repetitivas. Tu caso real se calcula en el diagnóstico gratuito.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PROCESS ============================= -->
+    <section class="section-pad" id="proceso">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow" data-reveal>METODOLOGÍA</div>
+          <h2 data-reveal>De proceso manual<br>a <span class="accent">sistema automático.</span></h2>
+        </div>
+
+        <div class="process-track">
+          <div class="process-line-fill"></div>
+          <div class="process-step" data-reveal><div class="p-node">01</div><h3>Analizamos</h3><p>Estudiamos cómo funciona tu negocio hoy: mensajes, reservas, procesos y puntos de fuga.</p></div>
+          <div class="process-step" data-reveal><div class="p-node">02</div><h3>Diseñamos</h3><p>Diseñamos el sistema de automatización a medida de tu operativa real.</p></div>
+          <div class="process-step" data-reveal><div class="p-node">03</div><h3>Conectamos</h3><p>Integramos WhatsApp, calendario, CRM y tus herramientas actuales.</p></div>
+          <div class="process-step" data-reveal><div class="p-node">04</div><h3>Automatizamos</h3><p>Tu agente de IA empieza a atender, cualificar y reservar de forma autónoma.</p></div>
+          <div class="process-step" data-reveal><div class="p-node">05</div><h3>Optimizamos</h3><p>Medimos resultados y ajustamos el sistema para mejorar cada semana.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= INDUSTRIES ============================= -->
+    <section class="section-pad" id="sectores">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-reveal>SECTORES</div>
+            <h2 data-reveal>IA adaptada<br>a tu negocio.</h2>
+          </div>
+          <p class="lede" data-reveal>Cada sector tiene procesos distintos. Así es como los automatizamos.</p>
+        </div>
+
+        <div class="industries-tabs" data-reveal role="tablist">
+          <button class="industry-tab" data-industry="clinicas">Clínicas</button>
+          <button class="industry-tab" data-industry="fisioterapia">Fisioterapia</button>
+          <button class="industry-tab" data-industry="talleres">Talleres</button>
+          <button class="industry-tab" data-industry="gimnasios">Gimnasios</button>
+          <button class="industry-tab" data-industry="inmobiliarias">Inmobiliarias</button>
+          <button class="industry-tab" data-industry="restaurantes">Restaurantes</button>
+          <button class="industry-tab" data-industry="estetica">Estética</button>
+          <button class="industry-tab" data-industry="academias">Academias</button>
+          <button class="industry-tab" data-industry="despachos">Despachos</button>
+          <button class="industry-tab" data-industry="servicios">Empresas de servicios</button>
+        </div>
+
+        <div class="industry-panel" data-reveal>
+          <div class="industry-flow" data-industry="clinicas" hidden>
+            <div class="f-node">Paciente</div><div class="f-arrow">→</div><div class="f-node">WhatsApp</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Triage y cualificación</div><div class="f-arrow">→</div><div class="f-node">Reserva de cita</div><div class="f-arrow">→</div><div class="f-node">Calendario</div><div class="f-arrow">→</div><div class="f-node">Recordatorio 24h</div><div class="f-arrow">→</div><div class="f-node">Reseña</div>
+          </div>
+          <div class="industry-flow" data-industry="fisioterapia" hidden>
+            <div class="f-node">Paciente</div><div class="f-arrow">→</div><div class="f-node">WhatsApp</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Cualificación</div><div class="f-arrow">→</div><div class="f-node">Reserva</div><div class="f-arrow">→</div><div class="f-node">Calendar</div><div class="f-arrow">→</div><div class="f-node">Recordatorio</div><div class="f-arrow">→</div><div class="f-node">Reseña</div>
+          </div>
+          <div class="industry-flow" data-industry="talleres" hidden>
+            <div class="f-node">Cliente</div><div class="f-arrow">→</div><div class="f-node">WhatsApp</div><div class="f-arrow">→</div><div class="f-node is-core">IA pregunta vehículo y problema</div><div class="f-arrow">→</div><div class="f-node">Información recopilada</div><div class="f-arrow">→</div><div class="f-node">Reserva</div><div class="f-arrow">→</div><div class="f-node">Taller recibe ficha del cliente</div>
+          </div>
+          <div class="industry-flow" data-industry="gimnasios" hidden>
+            <div class="f-node">Interesado</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Instagram</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Info de planes y horarios</div><div class="f-arrow">→</div><div class="f-node">Clase de prueba</div><div class="f-arrow">→</div><div class="f-node">CRM registra el lead</div><div class="f-arrow">→</div><div class="f-node">Seguimiento de alta</div>
+          </div>
+          <div class="industry-flow" data-industry="inmobiliarias" hidden>
+            <div class="f-node">Interesado</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Web</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Cualificación (presupuesto y zona)</div><div class="f-arrow">→</div><div class="f-node">Visita agendada</div><div class="f-arrow">→</div><div class="f-node">Calendario del agente</div><div class="f-arrow">→</div><div class="f-node">CRM actualizado</div>
+          </div>
+          <div class="industry-flow" data-industry="restaurantes" hidden>
+            <div class="f-node">Cliente</div><div class="f-arrow">→</div><div class="f-node">WhatsApp</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Disponibilidad y comensales</div><div class="f-arrow">→</div><div class="f-node">Reserva confirmada</div><div class="f-arrow">→</div><div class="f-node">Recordatorio el mismo día</div><div class="f-arrow">→</div><div class="f-node">Reseña en Google</div>
+          </div>
+          <div class="industry-flow" data-industry="estetica" hidden>
+            <div class="f-node">Clienta</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Instagram</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Tratamiento de interés</div><div class="f-arrow">→</div><div class="f-node">Reserva de cita</div><div class="f-arrow">→</div><div class="f-node">Recordatorio 24h</div><div class="f-arrow">→</div><div class="f-node">Reseña automática</div>
+          </div>
+          <div class="industry-flow" data-industry="academias" hidden>
+            <div class="f-node">Alumno / familia</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Web</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Nivel e interés</div><div class="f-arrow">→</div><div class="f-node">Clase de prueba agendada</div><div class="f-arrow">→</div><div class="f-node">CRM matrícula</div><div class="f-arrow">→</div><div class="f-node">Seguimiento</div>
+          </div>
+          <div class="industry-flow" data-industry="despachos" hidden>
+            <div class="f-node">Cliente</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Email</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Tipo de consulta</div><div class="f-arrow">→</div><div class="f-node">Primera cita agendada</div><div class="f-arrow">→</div><div class="f-node">CRM con ficha del caso</div><div class="f-arrow">→</div><div class="f-node">Recordatorio y seguimiento</div>
+          </div>
+          <div class="industry-flow" data-industry="servicios" hidden>
+            <div class="f-node">Lead</div><div class="f-arrow">→</div><div class="f-node">WhatsApp / Web</div><div class="f-arrow">→</div><div class="f-node is-core">Agente IA</div><div class="f-arrow">→</div><div class="f-node">Cualificación del proyecto</div><div class="f-arrow">→</div><div class="f-node">Presupuesto o cita comercial</div><div class="f-arrow">→</div><div class="f-node">CRM</div><div class="f-arrow">→</div><div class="f-node">Seguimiento hasta el cierre</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= TRUST / TESTIMONIALS ============================= -->
+    <section class="section-pad" id="confianza">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow" data-reveal>CONFIANZA</div>
+          <h2 data-reveal>Resultados reales,<br>clientes reales.</h2>
+        </div>
+
+        <div class="trust-stats" data-reveal>
+          <div class="trust-stat"><b>+38%</b><span>Conversiones</span></div>
+          <div class="trust-stat"><b>−70%</b><span>No-shows</span></div>
+          <div class="trust-stat"><b>+30</b><span>Empresas confían en Azeritek</span></div>
+          <div class="trust-stat"><b>4,9/5</b><span>Satisfacción</span></div>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial" data-reveal>
+            <div class="stars">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+            </div>
+            <p>&ldquo;El 80% de nuestras reservas ya se gestionan solas. Las primeras visitas han aumentado de forma notable.&rdquo;</p>
+            <div class="who"><b>María Aguirre</b><span>Clínica Dental Aguirre, Bilbao</span></div>
+          </div>
+
+          <div class="testimonial" data-reveal>
+            <div class="stars">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+            </div>
+            <p>&ldquo;Las consultas de fin de semana ya no se pierden. 62 altas nuevas solo el último mes.&rdquo;</p>
+            <div class="who"><b>Jon Urresti</b><span>Gimnasio Indartsu, Donostia</span></div>
+          </div>
+
+          <div class="testimonial" data-reveal>
+            <div class="stars">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8L10 1.5Z"/></svg>
+            </div>
+            <p>&ldquo;El sistema cualifica y agenda visitas solo. Ahorramos 10 horas de administración a la semana.&rdquo;</p>
+            <div class="who"><b>Leire Etxeberria</b><span>Inmobiliaria Norte, Vitoria-Gasteiz</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= FAQ ============================= -->
+    <section class="section-pad" id="faq">
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow" data-reveal>PREGUNTAS FRECUENTES</div>
+          <h2 data-reveal>Antes de escribirnos,<br>seguro que te preguntas esto.</h2>
+        </div>
+
+        <div class="faq-list" data-reveal>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Necesito conocimientos técnicos para usarlo?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>No, ninguno. Nosotros configuramos y mantenemos todo el sistema. Tú y tu equipo seguís trabajando desde WhatsApp, vuestro calendario o vuestro CRM de siempre — la automatización ocurre por detrás.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Cuánto se tarda en tenerlo funcionando?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>El sistema suele estar operativo en cuestión de días, no meses. Empieza a funcionar desde el primer día y lo vamos afinando con datos reales de tu negocio durante las primeras semanas.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>Ya tengo CRM y calendario propios, ¿tengo que cambiarlos?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>No. Nos conectamos a las herramientas que ya usas — Google Calendar, tu CRM, tu email — en lugar de obligarte a migrar a un sistema nuevo. El objetivo es que todo lo que ya funciona siga funcionando, pero automatizado.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Hay permanencia o contrato a largo plazo?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>No. Trabajamos sin permanencia porque preferimos que te quedes por resultados, no por contrato.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Para qué tipo de negocio está pensado?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>Para cualquier negocio que gestione citas, reservas o consultas por WhatsApp: clínicas, talleres, gimnasios, inmobiliarias, restaurantes, academias, despachos y más. <a href="#sectores">Aquí tienes ejemplos por sector.</a></p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Y si un cliente necesita hablar con una persona?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>El agente de IA reconoce cuándo una conversación necesita atención humana y la deriva a tu equipo con todo el contexto ya recogido, sin que el cliente tenga que repetir nada.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Cuánto cuesta?</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="faq-a"><p>Depende de qué y cuánto quieras automatizar, así que no hay una tarifa única. Por eso empezamos siempre con un diagnóstico gratuito: analizamos tu caso y te damos un presupuesto ajustado, sin sorpresas.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="final-cta" id="cta-final">
+      <div class="final-cta-stage" aria-hidden="true"></div>
+      <div class="container">
+        <div class="eyebrow" data-reveal style="justify-content:center;">EMPIEZA HOY</div>
+        <h2 data-reveal>Tu negocio puede funcionar<br>sin depender de ti.</h2>
+        <p class="lede" data-reveal>Descubre qué procesos podemos automatizar en tu empresa.</p>
+        <div class="cta-row" data-reveal>
+          <a class="btn btn-primary btn-lg" data-magnetic href="https://wa.me/34639730895?text=Hola%2C%20quiero%20solicitar%20un%20diagn%C3%B3stico%20gratuito%20con%20Azeritek." target="_blank" rel="noopener">
+            SOLICITAR DIAGNÓSTICO GRATUITO
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="https://wa.me/34639730895?text=Hola%2C%20me%20gustar%C3%ADa%20hablar%20sobre%20automatizaci%C3%B3n%20para%20mi%20empresa." target="_blank" rel="noopener">HABLAR POR WHATSAPP</a>
+        </div>
+        <div class="cta-note" data-reveal style="justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>
+          20 minutos · Sin compromiso
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo/logo-wordmark.png" alt="Azeritek">
+          <p>Automatización con Inteligencia Artificial para empresas. Tu negocio funcionando, incluso cuando tú no estás.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <ul>
+            <li><a href="#servicios">Soluciones</a></li>
+            <li><a href="#proceso">Cómo funciona</a></li>
+            <li><a href="#sectores">Sectores</a></li>
+            <li><a href="#ecosistema">Ecosistema</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#confianza">Nosotros</a></li>
+            <li><a href="#resultados">Resultados</a></li>
+            <li><a href="https://wa.me/34639730895?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20automatizar%20mi%20empresa%20con%20Azeritek." target="_blank" rel="noopener">Diagnóstico gratuito</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><address>Portuetxe 51 – Ofic. 113<br>20018 Donostia, País Vasco</address></li>
+            <li><a href="tel:+34639730895">+34 639 73 08 95</a></li>
+            <li><a href="mailto:contacto@azeritek.es">contacto@azeritek.es</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Azeritek Automatización S.L. Todos los derechos reservados.</span>
+        <div class="fb-links">
+          <a href="aviso-legal.html">Aviso Legal</a>
+          <a href="politica-privacidad.html">Privacidad</a>
+        </div>
+        <span>Donostia · País Vasco</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/scene.js"></script>
+</body>
+</html>

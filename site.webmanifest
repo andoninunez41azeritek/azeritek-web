@@ -1,0 +1,13 @@
+{
+  "name": "Azeritek — Automatización con IA",
+  "short_name": "Azeritek",
+  "description": "Automatización con Inteligencia Artificial para empresas: WhatsApp, CRM, reservas y seguimiento de leads.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05070D",
+  "theme_color": "#05070D",
+  "icons": [
+    { "src": "assets/logo/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/logo/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
