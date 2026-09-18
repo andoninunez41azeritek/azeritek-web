@@ -1,2 +1,34 @@
+# Azeritek — azeritek.es
+# Default: allow all legitimate crawlers, including AI/answer-engine bots.
+
 User-agent: *
 Allow: /
+
+# AI / answer-engine crawlers used for discovery and citation
+# (explicitly allowed — do not remove if the goal is visibility in
+# ChatGPT Search, Perplexity, Copilot, Gemini and similar tools).
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://azeritek.es/sitemap.xml

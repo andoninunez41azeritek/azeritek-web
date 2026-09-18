@@ -16,6 +16,7 @@
     initPreloader();
     initCursor();
     initNav();
+    initNavDropdown();
     initQuickContact();
     initMagnetic();
     initReveals();
@@ -121,6 +122,66 @@
         })
       );
     }
+  }
+
+  /* ---------------------------------------------------------------------
+     Nav dropdown ("Soluciones") — click-to-toggle so behaviour is
+     identical on mouse, touch and keyboard (no hover-only state to get
+     stuck on touch devices). Disclosure pattern: a button with
+     aria-expanded followed by a plain link list.
+     ------------------------------------------------------------------- */
+  function initNavDropdown() {
+    const dropdowns = document.querySelectorAll(".nav-dropdown");
+    if (!dropdowns.length) return;
+
+    function closeAll(except) {
+      dropdowns.forEach((d) => {
+        if (d === except) return;
+        d.classList.remove("is-open");
+        d.querySelector(".nav-dropdown-toggle")?.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    dropdowns.forEach((dropdown) => {
+      const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+      const menu = dropdown.querySelector(".nav-dropdown-menu");
+      if (!toggle || !menu) return;
+
+      toggle.addEventListener("click", () => {
+        const open = !dropdown.classList.contains("is-open");
+        closeAll();
+        dropdown.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      menu.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          dropdown.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        })
+      );
+    });
+
+    document.addEventListener("click", (e) => {
+      dropdowns.forEach((d) => {
+        if (!d.contains(e.target)) {
+          d.classList.remove("is-open");
+          d.querySelector(".nav-dropdown-toggle")?.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      dropdowns.forEach((d) => {
+        if (d.classList.contains("is-open")) {
+          d.classList.remove("is-open");
+          const t = d.querySelector(".nav-dropdown-toggle");
+          t?.setAttribute("aria-expanded", "false");
+          t?.focus();
+        }
+      });
+    });
   }
 
   /* ---------------------------------------------------------------------
@@ -401,33 +462,6 @@
   }
 
   /* ---------------------------------------------------------------------
-     Process — scroll-scrubbed connector line
-     ------------------------------------------------------------------- */
-  function initProcess() {
-    const track = document.querySelector(".process-track");
-    if (!track || !window.ScrollTrigger) return;
-    const fill = track.querySelector(".process-line-fill");
-    const steps = Array.from(track.querySelectorAll(".process-step"));
-
-    ScrollTrigger.create({
-      trigger: track,
-      start: "top 75%",
-      end: "bottom 55%",
-      scrub: 0.6,
-      onUpdate: (self) => {
-        const p = self.progress;
-        const isRow = window.innerWidth > 900;
-        if (fill) {
-          if (isRow) fill.style.width = p * 100 + "%";
-          else fill.style.height = p * 100 + "%";
-        }
-        const activeIdx = Math.floor(p * steps.length);
-        steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
-      },
-    });
-  }
-
-  /* ---------------------------------------------------------------------
      Metrics — count-up numbers
      ------------------------------------------------------------------- */
   function initCounters() {
@@ -460,6 +494,33 @@
       { threshold: 0.5 }
     );
     nums.forEach((el) => io.observe(el));
+  }
+
+  /* ---------------------------------------------------------------------
+     Process — scroll-scrubbed connector line
+     ------------------------------------------------------------------- */
+  function initProcess() {
+    const track = document.querySelector(".process-track");
+    if (!track || !window.ScrollTrigger) return;
+    const fill = track.querySelector(".process-line-fill");
+    const steps = Array.from(track.querySelectorAll(".process-step"));
+
+    ScrollTrigger.create({
+      trigger: track,
+      start: "top 75%",
+      end: "bottom 55%",
+      scrub: 0.6,
+      onUpdate: (self) => {
+        const p = self.progress;
+        const isRow = window.innerWidth > 900;
+        if (fill) {
+          if (isRow) fill.style.width = p * 100 + "%";
+          else fill.style.height = p * 100 + "%";
+        }
+        const activeIdx = Math.floor(p * steps.length);
+        steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
+      },
+    });
   }
 
   /* ---------------------------------------------------------------------
