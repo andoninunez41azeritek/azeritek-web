@@ -241,20 +241,6 @@ h3, .h3{
   .cursor-dot, .cursor-ring{ display:none; }
 }
 
-/* ---------- Preloader ---------- */
-.preloader{
-  position: fixed; inset:0;
-  z-index: 10000;
-  background: var(--bg);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap: 26px;
-  transition: opacity .8s var(--ease-in-out), visibility .8s;
-}
-.preloader.is-done{ opacity:0; visibility:hidden; pointer-events:none; }
-.preloader img{ width: 74px; height:auto; opacity:.95; animation: pulse-logo 2.2s ease-in-out infinite; }
-.preloader-bar{ width: 180px; height:2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow:hidden; }
-.preloader-bar span{ display:block; height:100%; width:0%; background: linear-gradient(90deg,var(--blue-deep),var(--blue)); transition: width .25s var(--ease-out); }
-@keyframes pulse-logo{ 0%,100%{ filter: drop-shadow(0 0 6px rgba(0,163,255,.35)); } 50%{ filter: drop-shadow(0 0 18px rgba(0,163,255,.65)); } }
 
 /* ---------- Background WebGL canvas ---------- */
 #gl-stage{
@@ -1334,6 +1320,5 @@ body.nav-open{ overflow:hidden; }
   html{ scroll-behavior:auto; }
   [data-reveal], [data-reveal-scale]{ opacity:1 !important; transform:none !important; }
   .hero-copy [data-reveal]{ animation:none !important; }
-  .preloader-bar span{ transition:none; }
   .hero-scrollcue .line::after{ animation:none !important; }
 }

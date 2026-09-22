@@ -13,7 +13,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    initPreloader();
     initCursor();
     initNav();
     initNavDropdown();
@@ -31,34 +30,6 @@
     initCalculator();
     initSmoothAnchors();
   });
-
-  /* ---------------------------------------------------------------------
-     Preloader
-     ------------------------------------------------------------------- */
-  function initPreloader() {
-    const el = document.querySelector(".preloader");
-    if (!el) return;
-    const bar = el.querySelector(".preloader-bar span");
-    let done = false;
-
-    document.addEventListener("azeritek:load-progress", (e) => {
-      if (bar) bar.style.width = Math.round((e.detail.progress || 0) * 100) + "%";
-    });
-
-    const finish = () => {
-      if (done) return;
-      done = true;
-      if (bar) bar.style.width = "100%";
-      setTimeout(() => el.classList.add("is-done"), 150);
-    };
-
-    // The preloader is a brief brand moment, not a content gate: the hero
-    // above the fold renders immediately on its own (CSS-only), so it does
-    // NOT wait for the 3D scene's "azeritek:ready" event anymore — that
-    // used to tie LCP to Three.js loading over the network. A short fixed
-    // timer keeps the logo/bar flourish without blocking real content.
-    setTimeout(finish, REDUCED_MOTION ? 0 : 500);
-  }
 
   /* ---------------------------------------------------------------------
      Custom cursor
@@ -271,17 +242,35 @@
     const fill = flow.querySelector(".journey-line-fill");
     const steps = Array.from(flow.querySelectorAll(".journey-step"));
 
-    ScrollTrigger.create({
-      trigger: flow,
-      start: "top 75%",
-      end: "bottom 55%",
-      scrub: 0.6,
-      onUpdate: (self) => {
-        const p = self.progress;
-        if (fill) fill.style.height = p * 100 + "%";
-        const activeIdx = Math.floor(p * steps.length);
-        steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
-      },
+    // Desktop keeps the full scrub-linked animation. Mobile swaps it for a
+    // single discrete reveal on entering the section — same end state
+    // (line filled, every step highlighted), without recalculating on
+    // every scroll pixel. gsap.matchMedia() re-evaluates on resize/rotate
+    // and auto-reverts the previous breakpoint's ScrollTrigger.
+    gsap.matchMedia().add({ isMobile: "(max-width: 640px)", isDesktop: "(min-width: 641px)" }, (context) => {
+      if (context.conditions.isMobile) {
+        return ScrollTrigger.create({
+          trigger: flow,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            if (fill) gsap.to(fill, { height: "100%", duration: 1, ease: "power2.out" });
+            steps.forEach((s) => s.classList.add("is-active"));
+          },
+        });
+      }
+      return ScrollTrigger.create({
+        trigger: flow,
+        start: "top 75%",
+        end: "bottom 55%",
+        scrub: 0.6,
+        onUpdate: (self) => {
+          const p = self.progress;
+          if (fill) fill.style.height = p * 100 + "%";
+          const activeIdx = Math.floor(p * steps.length);
+          steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
+        },
+      });
     });
   }
 
@@ -353,8 +342,16 @@
     const afterEls = Array.from(stage.querySelectorAll(".tf-after .tf-pill"));
     const afterLayer = stage.querySelector(".tf-after");
     const core = stage.querySelector(".transform-core");
-    if (window.innerWidth <= 640) return; // simplified static layout on mobile (CSS handles it)
 
+    // Mobile keeps the simplified static CSS layout (no scatter animation,
+    // see .transform-stage mobile rules in style.css) — only registering a
+    // desktop handler means matchMedia simply never runs this on mobile,
+    // and re-checks automatically on resize/orientation change.
+    gsap.matchMedia().add({ isDesktop: "(min-width: 641px)" }, () => {
+      return buildTransformScatter();
+    });
+
+    function buildTransformScatter() {
     // scattered starting spots around the stage
     const scatterSpots = [
       { x: "6%", y: "10%", r: -8 },
@@ -419,6 +416,9 @@
         },
         0.5
       );
+
+      return tl;
+    }
   }
 
   /* ---------------------------------------------------------------------
@@ -550,21 +550,38 @@
     const fill = track.querySelector(".process-line-fill");
     const steps = Array.from(track.querySelectorAll(".process-step"));
 
-    ScrollTrigger.create({
-      trigger: track,
-      start: "top 75%",
-      end: "bottom 55%",
-      scrub: 0.6,
-      onUpdate: (self) => {
-        const p = self.progress;
-        const isRow = window.innerWidth > 900;
-        if (fill) {
-          if (isRow) fill.style.width = p * 100 + "%";
-          else fill.style.height = p * 100 + "%";
-        }
-        const activeIdx = Math.floor(p * steps.length);
-        steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
-      },
+    // Same strategy as initJourney(): full scrub on desktop, one discrete
+    // reveal on mobile. Below 900px the track is already a vertical single
+    // column (see .process-track CSS), which the ≤640px mobile branch is
+    // always inside, so the fill only ever needs to animate `height` there.
+    gsap.matchMedia().add({ isMobile: "(max-width: 640px)", isDesktop: "(min-width: 641px)" }, (context) => {
+      if (context.conditions.isMobile) {
+        return ScrollTrigger.create({
+          trigger: track,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            if (fill) gsap.to(fill, { height: "100%", duration: 1, ease: "power2.out" });
+            steps.forEach((s) => s.classList.add("is-active"));
+          },
+        });
+      }
+      return ScrollTrigger.create({
+        trigger: track,
+        start: "top 75%",
+        end: "bottom 55%",
+        scrub: 0.6,
+        onUpdate: (self) => {
+          const p = self.progress;
+          const isRow = window.innerWidth > 900;
+          if (fill) {
+            if (isRow) fill.style.width = p * 100 + "%";
+            else fill.style.height = p * 100 + "%";
+          }
+          const activeIdx = Math.floor(p * steps.length);
+          steps.forEach((s, i) => s.classList.toggle("is-active", i <= activeIdx));
+        },
+      });
     });
   }
 

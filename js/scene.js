@@ -292,20 +292,26 @@ async function initScene(canvas, labelsRoot) {
     ecosystem: document.getElementById("ecosistema"),
     final: document.getElementById("cta-final"),
   };
+  // Cached viewport width, refreshed only on resize (see resize() below) —
+  // ZONE_PARAMS callbacks run every single render-loop frame, and reading
+  // window.innerWidth live from inside that hot path can force a synchronous
+  // layout pass if a style write from earlier in the same frame hasn't been
+  // flushed yet. Reading a plain cached number instead is free.
+  let viewportW = window.innerWidth;
   const ZONE_PARAMS = {
     // On narrow viewports the hero copy stacks and fills most of the
     // screen, so the core is pushed down + shrunk to sit below the text
     // instead of competing with it; on wide viewports it sits beside it.
     hero: {
       camZ: 8.6,
-      offsetX: () => (window.innerWidth > 980 ? 2.0 : 0),
-      offsetY: () => (window.innerWidth > 980 ? 0 : -2.15),
-      scale: () => (window.innerWidth > 980 ? 1 : 0.6),
+      offsetX: () => (viewportW > 980 ? 2.0 : 0),
+      offsetY: () => (viewportW > 980 ? 0 : -2.15),
+      scale: () => (viewportW > 980 ? 1 : 0.6),
       opacity: 1,
       showLabels: true,
     },
-    ecosystem: { camZ: 10.6, offsetX: () => 0, offsetY: () => 0, scale: () => (window.innerWidth > 680 ? 1.08 : 0.82), opacity: 1, showLabels: true },
-    final: { camZ: 9.0, offsetX: () => 0, offsetY: () => 0, scale: () => (window.innerWidth > 680 ? 1.32 : 0.9), opacity: 1, showLabels: false },
+    ecosystem: { camZ: 10.6, offsetX: () => 0, offsetY: () => 0, scale: () => (viewportW > 680 ? 1.08 : 0.82), opacity: 1, showLabels: true },
+    final: { camZ: 9.0, offsetX: () => 0, offsetY: () => 0, scale: () => (viewportW > 680 ? 1.32 : 0.9), opacity: 1, showLabels: false },
     none: { camZ: 8.6, offsetX: () => 0, offsetY: () => 0, scale: () => 1, opacity: 0, showLabels: false },
   };
 
@@ -380,9 +386,12 @@ async function initScene(canvas, labelsRoot) {
   };
 
   // ---------------- Resize ----------------
+  let viewportH = window.innerHeight;
   function resize() {
     const w = window.innerWidth;
     const h = window.innerHeight;
+    viewportW = w;
+    viewportH = h;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
@@ -489,8 +498,8 @@ async function initScene(canvas, labelsRoot) {
           const worldPos = new THREE.Vector3();
           m.sprite.getWorldPosition(worldPos);
           worldPos.project(camera);
-          const x = (worldPos.x * 0.5 + 0.5) * window.innerWidth;
-          const y = (-worldPos.y * 0.5 + 0.5) * window.innerHeight + 40;
+          const x = (worldPos.x * 0.5 + 0.5) * viewportW;
+          const y = (-worldPos.y * 0.5 + 0.5) * viewportH + 40;
           m.labelEl.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
           m.labelEl.classList.add("is-visible");
         } else {
