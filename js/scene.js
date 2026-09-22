@@ -5,7 +5,7 @@
    Scroll position blends camera framing between three "focus zones":
    hero -> ecosystem -> final-cta. Elsewhere the canvas gently fades out.
    ========================================================================= */
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js";
 
 // Small safety polyfill for older canvas implementations without roundRect.
 if (typeof CanvasRenderingContext2D !== "undefined" && !CanvasRenderingContext2D.prototype.roundRect) {
@@ -22,14 +22,17 @@ if (typeof CanvasRenderingContext2D !== "undefined" && !CanvasRenderingContext2D
 }
 
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IS_MOBILE = window.matchMedia("(max-width: 760px)").matches || window.matchMedia("(hover: none)").matches;
 
 const canvas = document.getElementById("gl-canvas");
 const labelsRoot = document.getElementById("node-labels");
 
-if (!canvas) {
-  // Nothing to do — page markup missing the canvas host.
-  console.warn("Azeritek scene: #gl-canvas not found.");
-} else {
+function boot() {
+  if (!canvas) {
+    // Nothing to do — page markup missing the canvas host.
+    console.warn("Azeritek scene: #gl-canvas not found.");
+    return;
+  }
   initScene(canvas, labelsRoot).catch((err) => {
     console.error("Azeritek 3D scene failed to start:", err);
     canvas.style.display = "none";
@@ -38,19 +41,29 @@ if (!canvas) {
   });
 }
 
+// The 3D scene is a background enhancement, not critical content: start it
+// once the browser is idle (i.e. after it has finished more urgent work
+// like laying out and painting the hero) instead of competing with that
+// work the instant this module finishes downloading.
+if ("requestIdleCallback" in window) {
+  requestIdleCallback(boot, { timeout: 1500 });
+} else {
+  setTimeout(boot, 200);
+}
+
 async function initScene(canvas, labelsRoot) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true,
+      antialias: !IS_MOBILE,
       alpha: true,
       powerPreference: "high-performance",
     });
   } catch (e) {
     throw new Error("WebGL unavailable");
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.5 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -158,7 +171,7 @@ async function initScene(canvas, labelsRoot) {
   // AZERITEK emblem at the heart of the core
   let emblem = null;
   try {
-    const emblemTex = await loadTexture(textureLoader, "assets/logo/logo-mark.png");
+    const emblemTex = await loadTexture(textureLoader, "assets/logo/logo-mark-3d.webp");
     emblemTex.colorSpace = THREE.SRGBColorSpace;
     emblem = new THREE.Sprite(
       new THREE.SpriteMaterial({ map: emblemTex, transparent: true, depthWrite: false, opacity: 0.96 })
@@ -178,7 +191,7 @@ async function initScene(canvas, labelsRoot) {
   // ---------------- Particle field ----------------
   const particleGroup = new THREE.Group();
   world.add(particleGroup);
-  const PARTICLE_COUNT = REDUCED_MOTION ? 200 : 650;
+  const PARTICLE_COUNT = REDUCED_MOTION ? 200 : IS_MOBILE ? 260 : 650;
   const particlePos = new Float32Array(PARTICLE_COUNT * 3);
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     const r = 6 + Math.random() * 9;
@@ -296,10 +309,9 @@ async function initScene(canvas, labelsRoot) {
     none: { camZ: 8.6, offsetX: () => 0, offsetY: () => 0, scale: () => 1, opacity: 0, showLabels: false },
   };
 
-  function sectionWeight(el) {
+  function sectionWeight(el, vh) {
     if (!el) return 0;
     const r = el.getBoundingClientRect();
-    const vh = window.innerHeight || 1;
     const center = r.top + r.height / 2;
     const dist = Math.abs(center - vh / 2);
     // Fixed falloff radius (not tied to the section's own height) — a very
@@ -310,11 +322,12 @@ async function initScene(canvas, labelsRoot) {
     return Math.max(0, 1 - dist / maxDist);
   }
 
-  function currentZone() {
+  function computeZone() {
+    const vh = window.innerHeight || 1;
     let best = "none";
     let bestW = 0.001;
     for (const key of Object.keys(zoneEls)) {
-      const w = sectionWeight(zoneEls[key]);
+      const w = sectionWeight(zoneEls[key], vh);
       if (w > bestW) {
         bestW = w;
         best = key;
@@ -322,6 +335,24 @@ async function initScene(canvas, labelsRoot) {
     }
     return { zone: best, weight: bestW };
   }
+
+  // currentZone() used to call getBoundingClientRect() from inside the
+  // render loop — a forced synchronous layout read on every single frame,
+  // forever, even while the page isn't scrolling. Instead, recompute it
+  // only when scroll/resize actually happen (rAF-throttled), and have the
+  // render loop just read the cached result.
+  let cachedZone = computeZone();
+  let zoneUpdateQueued = false;
+  function scheduleZoneUpdate() {
+    if (zoneUpdateQueued) return;
+    zoneUpdateQueued = true;
+    requestAnimationFrame(() => {
+      cachedZone = computeZone();
+      zoneUpdateQueued = false;
+    });
+  }
+  window.addEventListener("scroll", scheduleZoneUpdate, { passive: true });
+  window.addEventListener("resize", scheduleZoneUpdate);
 
   // ---------------- Interaction state ----------------
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -362,9 +393,23 @@ async function initScene(canvas, labelsRoot) {
   // ---------------- Render loop ----------------
   const clock = new THREE.Clock();
   let readyFired = false;
+  let rafId = null;
+
+  // Don't burn CPU/battery rendering a background scene nobody can see:
+  // pause the loop entirely while the tab is in the background, and resume
+  // (with a fresh delta so nothing "jumps") when it comes back.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      rafId = null;
+    } else if (rafId === null) {
+      clock.getDelta(); // discard the paused-time gap
+      rafId = requestAnimationFrame(tick);
+    }
+  });
 
   function tick() {
-    requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
 
@@ -387,8 +432,8 @@ async function initScene(canvas, labelsRoot) {
     const pulse = 0.85 + Math.sin(t * 1.6) * 0.12;
     coreGlow.material.opacity = 0.7 * pulse;
 
-    // ---- Scroll zone blend ----
-    const { zone, weight } = currentZone();
+    // ---- Scroll zone blend (cached — see scheduleZoneUpdate above) ----
+    const { zone, weight } = cachedZone;
     const target = ZONE_PARAMS[zone] || ZONE_PARAMS.none;
     const targetOpacity = zone === "none" ? 0 : Math.min(1, weight * 1.3) * target.opacity;
 
@@ -409,6 +454,14 @@ async function initScene(canvas, labelsRoot) {
       canvas.classList.add("is-ready");
       document.dispatchEvent(new CustomEvent("azeritek:ready"));
     }
+
+    // The scene is fully faded out for most of the page (services, metrics,
+    // sectors, FAQ...). Skip the per-module math (label projection, packet
+    // curve sampling, material lerps) and the actual WebGL draw call while
+    // it's invisible and not currently transitioning — this is where most
+    // of the scroll-time CPU cost was going for content nobody could see.
+    const isVisible = state.opacity > 0.01 || targetOpacity > 0.01;
+    if (!isVisible) return;
 
     // active tiers for module reveal
     const activeTierName = zone === "final" ? "all" : zone === "none" ? null : zone;

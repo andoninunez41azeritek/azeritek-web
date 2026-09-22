@@ -25,7 +25,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/style.css">
 
 <!-- Entity: who Azeritek is, what it offers, who it serves, how to contact it -->
@@ -130,7 +131,7 @@
 
   <!-- Preloader -->
   <div class="preloader" aria-hidden="true">
-    <img src="assets/logo/logo-mark-sm.png" alt="" width="74" height="74">
+    <img src="assets/logo/logo-mark-sm.webp" alt="" width="74" height="74">
     <div class="preloader-bar"><span></span></div>
   </div>
 
@@ -148,7 +149,7 @@
   <!-- Navigation -->
   <header class="nav">
     <a href="#hero" class="nav-logo" aria-label="Azeritek — inicio">
-      <img src="assets/logo/logo-mark-sm.png" alt="" width="26" height="26">
+      <img src="assets/logo/logo-mark-sm.webp" alt="" width="26" height="26">
       <span>AZERITEK</span>
     </a>
     <nav class="nav-links" aria-label="Navegación principal">
@@ -337,7 +338,7 @@
             <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 6v5l3 3"/><circle cx="10" cy="10" r="7.5"/></svg>Procesos repetitivos</div>
           </div>
 
-          <img class="transform-core" src="assets/logo/logo-mark-sm.png" alt="" width="92" height="92" loading="lazy" aria-hidden="true">
+          <img class="transform-core" src="assets/logo/logo-mark-sm.webp" alt="" width="92" height="92" loading="lazy" aria-hidden="true">
 
           <div class="tf-layer tf-after">
             <div class="tf-pill"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>Respuestas 24/7</div>
@@ -713,13 +714,13 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#hero" class="footer-logo" aria-label="Azeritek — inicio">
-            <img src="assets/logo/logo-mark-sm.png" alt="" width="30" height="30" loading="lazy">
+            <img src="assets/logo/logo-mark-sm.webp" alt="" width="30" height="30" loading="lazy">
             <span>AZERITEK</span>
           </a>
           <p>Azeritek es una empresa española de automatización con Inteligencia Artificial. Diseñamos agentes de IA para WhatsApp, reservas, seguimiento comercial y CRM.</p>
         </div>
         <div class="footer-col">
-          <h4>Soluciones</h4>
+          <h3>Soluciones</h3>
           <ul>
             <li><a href="agentes-ia.html">Agentes de IA</a></li>
             <li><a href="automatizacion-whatsapp.html">Automatización de WhatsApp</a></li>
@@ -728,7 +729,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Sectores</h4>
+          <h3>Sectores</h3>
           <ul>
             <li><a href="automatizacion-ia-clinicas.html">Clínicas</a></li>
             <li><a href="automatizacion-ia-gimnasios.html">Gimnasios</a></li>
@@ -737,7 +738,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Empresa</h4>
+          <h3>Empresa</h3>
           <ul>
             <li><a href="#confianza">Nosotros</a></li>
             <li><a href="#resultados">Resultados</a></li>
@@ -745,7 +746,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Contacto</h4>
+          <h3>Contacto</h3>
           <ul>
             <li><address>Portuetxe 51 – Ofic. 113<br>20018 Donostia, País Vasco</address></li>
             <li><a href="tel:+34639730895">+34 639 73 08 95</a></li>
@@ -768,6 +769,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
-  <script type="module" src="js/scene.js"></script>
+  <script type="module" src="js/scene.js" async></script>
 </body>
 </html>

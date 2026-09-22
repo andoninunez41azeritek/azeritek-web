@@ -49,12 +49,15 @@
       if (done) return;
       done = true;
       if (bar) bar.style.width = "100%";
-      setTimeout(() => el.classList.add("is-done"), 260);
+      setTimeout(() => el.classList.add("is-done"), 150);
     };
 
-    document.addEventListener("azeritek:ready", finish);
-    // hard safety net so the site is never blocked by the 3D scene
-    setTimeout(finish, 3200);
+    // The preloader is a brief brand moment, not a content gate: the hero
+    // above the fold renders immediately on its own (CSS-only), so it does
+    // NOT wait for the 3D scene's "azeritek:ready" event anymore — that
+    // used to tie LCP to Three.js loading over the network. A short fixed
+    // timer keeps the logo/bar flourish without blocking real content.
+    setTimeout(finish, REDUCED_MOTION ? 0 : 500);
   }
 
   /* ---------------------------------------------------------------------
@@ -235,7 +238,12 @@
      Generic scroll reveals
      ------------------------------------------------------------------- */
   function initReveals() {
-    const items = document.querySelectorAll("[data-reveal], [data-reveal-scale]");
+    // Hero content has its own CSS-only entrance animation (see .hero-copy
+    // [data-reveal] in style.css) so it paints immediately without waiting
+    // on this observer — skip it here to avoid redundant work.
+    const items = Array.from(document.querySelectorAll("[data-reveal], [data-reveal-scale]")).filter(
+      (el) => !el.closest(".hero")
+    );
     if (!items.length) return;
     const io = new IntersectionObserver(
       (entries) => {
@@ -443,8 +451,30 @@
     const panels = Array.from(document.querySelectorAll(".industry-flow"));
     if (!tabs.length) return;
 
-    function activate(key) {
-      tabs.forEach((t) => t.classList.toggle("is-active", t.dataset.industry === key));
+    // Wire proper ARIA tabs relationships (role="tab"/"tabpanel",
+    // aria-selected, aria-controls/aria-labelledby) instead of leaving the
+    // buttons as plain, unrelated children of the role="tablist" container.
+    tabs.forEach((t) => {
+      const key = t.dataset.industry;
+      t.id = t.id || `tab-${key}`;
+      t.setAttribute("role", "tab");
+      t.setAttribute("aria-controls", `panel-${key}`);
+    });
+    panels.forEach((p) => {
+      const key = p.dataset.industry;
+      p.id = p.id || `panel-${key}`;
+      p.setAttribute("role", "tabpanel");
+      p.setAttribute("aria-labelledby", `tab-${key}`);
+    });
+
+    function activate(key, { focus = false } = {}) {
+      tabs.forEach((t) => {
+        const match = t.dataset.industry === key;
+        t.classList.toggle("is-active", match);
+        t.setAttribute("aria-selected", match ? "true" : "false");
+        t.tabIndex = match ? 0 : -1;
+        if (match && focus) t.focus();
+      });
       panels.forEach((p) => {
         const match = p.dataset.industry === key;
         if (match) {
@@ -457,7 +487,22 @@
       });
     }
 
-    tabs.forEach((t) => t.addEventListener("click", () => activate(t.dataset.industry)));
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => activate(t.dataset.industry));
+      // Standard ARIA tabs keyboard pattern: arrow keys move focus AND
+      // activate (automatic activation), Home/End jump to the ends.
+      t.addEventListener("keydown", (e) => {
+        let idx = -1;
+        if (e.key === "ArrowRight") idx = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft") idx = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") idx = 0;
+        else if (e.key === "End") idx = tabs.length - 1;
+        if (idx === -1) return;
+        e.preventDefault();
+        activate(tabs[idx].dataset.industry, { focus: true });
+      });
+    });
+
     activate(tabs[0].dataset.industry);
   }
 

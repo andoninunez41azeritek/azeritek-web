@@ -485,8 +485,8 @@ body.nav-open{ overflow:hidden; }
   z-index: 5;
 }
 .hero-scrollcue .line{ width:1px; height:34px; background: linear-gradient(var(--blue), transparent); position:relative; overflow:hidden; }
-.hero-scrollcue .line::after{ content:''; position:absolute; left:0; top:-100%; width:100%; height:100%; background: linear-gradient(#fff, transparent); animation: cue-drop 1.8s var(--ease-in-out) infinite; }
-@keyframes cue-drop{ to{ top: 100%; } }
+.hero-scrollcue .line::after{ content:''; position:absolute; left:0; top:0; width:100%; height:100%; background: linear-gradient(#fff, transparent); animation: cue-drop 1.8s var(--ease-in-out) infinite; transform: translateY(-100%); }
+@keyframes cue-drop{ to{ transform: translateY(100%); } }
 
 @media (max-width: 980px){
   .hero-grid{ grid-template-columns: 1fr; text-align:center; }
@@ -531,6 +531,18 @@ body.nav-open{ overflow:hidden; }
 [data-reveal-scale].is-in{ opacity:1; transform:none; transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
 
 .stagger > *{ transition-delay: calc(var(--i, 0) * 90ms); }
+
+/* Hero content is the LCP element: it must never wait on an
+   IntersectionObserver (itself gated behind main.js/Three.js loading) to
+   become visible. It gets its own CSS-only entrance animation that starts
+   painting immediately, independent of any JS. */
+.hero-copy [data-reveal]{ opacity: 1; transform: none; animation: hero-in .8s var(--ease-out) both; }
+.hero-copy .eyebrow{ animation-delay: 0s; }
+.hero-copy h1{ animation-delay: .08s; }
+.hero-copy .lede{ animation-delay: .16s; }
+.hero-copy .cta-row{ animation-delay: .24s; }
+.hero-copy .cta-note{ animation-delay: .32s; }
+@keyframes hero-in{ from{ opacity:0; transform: translateY(22px); } to{ opacity:1; transform:none; } }
 
 /* =========================================================================
    JOURNEY SECTION
@@ -1203,7 +1215,7 @@ body.nav-open{ overflow:hidden; }
 .footer-logo img{ height:30px; width:auto; }
 .footer-logo span{ font-family: var(--font-display); font-weight:600; font-size:17px; letter-spacing:.02em; color:#fff; }
 .footer-brand p{ color: var(--text-dim); font-size:13.5px; max-width:30ch; line-height:1.6; }
-.footer-col h4{ font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color: var(--text-dimmer); margin-bottom:16px; }
+.footer-col h3{ font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color: var(--text-dimmer); margin-bottom:16px; }
 .footer-col ul{ display:flex; flex-direction:column; gap:11px; }
 .footer-col a, .footer-col address{ font-size:13.5px; color: var(--text-dim); font-style:normal; transition: color .25s; }
 .footer-col a:hover{ color: var(--blue); }
@@ -1321,5 +1333,7 @@ body.nav-open{ overflow:hidden; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   [data-reveal], [data-reveal-scale]{ opacity:1 !important; transform:none !important; }
+  .hero-copy [data-reveal]{ animation:none !important; }
   .preloader-bar span{ transition:none; }
+  .hero-scrollcue .line::after{ animation:none !important; }
 }
