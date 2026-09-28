@@ -389,6 +389,13 @@ main, header, footer{ position: relative; z-index: 3; }
 .nav-cta{ display:flex; align-items:center; gap:10px; }
 .nav-cta .btn{ padding: 11px 20px; font-size: 13px; }
 
+/* ---------- Language switch (ES/EU) — only on pages with a translated pair ---------- */
+.lang-switch{ display:flex; align-items:center; gap:2px; font-size:12px; font-weight:600; letter-spacing:.03em; }
+.lang-switch a, .lang-switch span{ padding:6px 8px; border-radius:100px; color: var(--text-dimmer); }
+.lang-switch a{ transition: color .2s, background .2s; }
+.lang-switch a:hover{ color:#fff; background: rgba(255,255,255,.06); }
+.lang-switch [aria-current]{ color: var(--blue); }
+
 .nav-burger{
   display:none;
   width: 40px; height:40px;

@@ -1,47 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://azeritek.es/</loc>
+    <loc>https://www.azeritek.es/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/agentes-ia.html</loc>
+    <loc>https://www.azeritek.es/agentes-ia.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/automatizacion-whatsapp.html</loc>
+    <loc>https://www.azeritek.es/automatizacion-whatsapp.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/automatizacion-reservas.html</loc>
+    <loc>https://www.azeritek.es/automatizacion-reservas.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/automatizacion-ia-clinicas.html</loc>
+    <loc>https://www.azeritek.es/automatizacion-ia-clinicas.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/automatizacion-ia-gimnasios.html</loc>
+    <loc>https://www.azeritek.es/automatizacion-ia-gimnasios.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/automatizacion-ia-inmobiliarias.html</loc>
+    <loc>https://www.azeritek.es/automatizacion-ia-inmobiliarias.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/aviso-legal.html</loc>
+    <loc>https://www.azeritek.es/agentes-ia-pais-vasco.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.azeritek.es/eu/ia-agenteak-enpresentzat.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.azeritek.es/recursos/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.azeritek.es/recursos/que-es-un-agente-ia-para-empresas.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.azeritek.es/aviso-legal.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://azeritek.es/politica-privacidad.html</loc>
+    <loc>https://www.azeritek.es/politica-privacidad.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

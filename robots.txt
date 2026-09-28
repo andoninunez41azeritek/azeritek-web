@@ -31,4 +31,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://azeritek.es/sitemap.xml
+Sitemap: https://www.azeritek.es/sitemap.xml
